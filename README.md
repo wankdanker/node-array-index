@@ -26,7 +26,7 @@ var ary = [
 We can create an index for a specific 'column', in this case, 'company_id':
 
 ```javascript
-var idx = index(ary, 'name');
+var idx = index(ary, 'company_id');
 ```
 
 and idx will be:

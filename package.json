@@ -1,7 +1,7 @@
 {
   "name": "array-index",
   "version": "0.0.1",
-  "description": "Crete indexes based on arrays of objects",
+  "description": "Create indexes based on arrays of objects",
   "main": "index.js",
   "scripts": {
     "test": "nodeunit test.js"

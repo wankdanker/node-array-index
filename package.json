@@ -8,8 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@git.paviliongift.com/node-array-index.git"
+    "url": "git://github.com/wankdanker/array-index.git"
   },
   "author": "Dan VerWeire",
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+    "index",
+    "array",
+    "object"
+  ]
 }

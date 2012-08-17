@@ -1,0 +1,15 @@
+{
+  "name": "array-index",
+  "version": "0.0.1",
+  "description": "Crete indexes based on arrays of objects",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodeunit test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.paviliongift.com/node-array-index.git"
+  },
+  "author": "Dan VerWeire",
+  "license": "MIT"
+}

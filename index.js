@@ -26,7 +26,7 @@ function index (array, fieldList) {
 		
 		array.forEach(function (obj) {
 			fieldList.forEach(function (field) {
-				val = obj[field];
+				val = getKeyValue(obj, field);
 				
 				if (!idx[field].hasOwnProperty(val)) {
 					idx[field][val] = [];
@@ -41,6 +41,12 @@ function index (array, fieldList) {
 		
 		array.forEach(function (obj) {
 			Object.keys(obj).forEach(function (field) {
+				//avoid indexing fields whose values are
+				//objects
+				if (typeof obj[field] === 'object') {
+					return;
+				}
+				
 				if (!idx.hasOwnProperty(field)) {
 					idx[field] = {};
 				}
@@ -58,6 +64,40 @@ function index (array, fieldList) {
 	
 	return idx;
 }
+
+function getKeyValue(obj, key, undefined) {
+  var reg = /\./gi
+    , subKey
+    , keys
+    , context
+    , x
+    ;
+  
+  if (reg.test(key)) {
+    keys = key.split(reg);
+    context = obj;
+    
+    for (x = 0; x < keys.length; x++) {
+      subKey = keys[x];
+      
+      //the values of all keys except for
+      //the last one should be objects
+      if (x < keys.length -1) {
+        if (!context.hasOwnProperty(subKey)) {
+          return undefined;
+        }
+        
+        context = context[subKey];
+      }
+      else {
+        return context[subKey];
+      }
+    }
+  }
+  else {
+    return obj[key];
+  }
+};
 
 module.exports.enableArrayIndexPrototype = function () {
 	Array.prototype.index = index;

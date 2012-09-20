@@ -1,5 +1,5 @@
 {
-  "name": "array-index",
+  "name": "array-indexer",
   "version": "0.0.1",
   "description": "Create indexes based on arrays of objects",
   "main": "index.js",

@@ -1,25 +1,30 @@
 var index = require('./');
 
 var data = [
-	  { id : 1, name : 'Dan', sex : 'male' }
-	, { id : 2, name : 'Sam', sex : 'female' }
-	, { id : 3, name : 'Pat', sex : 'female' }
-	, { id : 4, name : 'Jon', sex : 'male' }
-	, { id : 5, name : 'Dug', sex : 'male' }
+	  { id : 1, name : 'Dan', sex : 'male', child : { a : 1 } }
+	, { id : 2, name : 'Sam', sex : 'female', child : { a : 2 } }
+	, { id : 3, name : 'Pat', sex : 'female', child : { a : 3 } }
+	, { id : 4, name : 'Jon', sex : 'male', child : { a : 1 } }
+	, { id : 5, name : 'Dug', sex : 'male', child : { a : 2 } }
 ];
 
 module.exports = {
 	"test data array with field list array " : function (test) {
 		test.deepEqual(
 			index(data, ['sex'])
-			, { sex: 
-				{ male: 
-					[ { id: 1, name: 'Dan', sex: 'male' },
-						{ id: 4, name: 'Jon', sex: 'male' },
-						{ id: 5, name: 'Dug', sex: 'male' } ],
-					female: 
-					[ { id: 2, name: 'Sam', sex: 'female' },
-						{ id: 3, name: 'Pat', sex: 'female' } ] } }
+			, { 
+				sex: {
+					male: [ 
+						{ id: 1, name: 'Dan', sex: 'male', child : { a : 1 } }
+						, { id: 4, name: 'Jon', sex: 'male', child : { a : 1 } }
+						, { id: 5, name: 'Dug', sex: 'male', child : { a : 2 } }
+					]
+					, female: [ 
+						{ id: 2, name: 'Sam', sex: 'female', child : { a : 2 } }
+						, { id: 3, name: 'Pat', sex: 'female', child : { a : 3 } } 
+					] 
+				} 
+			}
 		);
 		
 		test.done();
@@ -27,14 +32,19 @@ module.exports = {
 	, "test data array with field string " : function (test) {
 		test.deepEqual(
 			index(data, 'sex')
-			, { sex: 
-				{ male: 
-					[ { id: 1, name: 'Dan', sex: 'male' },
-						{ id: 4, name: 'Jon', sex: 'male' },
-						{ id: 5, name: 'Dug', sex: 'male' } ],
-					female: 
-					[ { id: 2, name: 'Sam', sex: 'female' },
-						{ id: 3, name: 'Pat', sex: 'female' } ] } }
+			, { 
+				sex : {
+					male: [ 
+						{ id: 1, name: 'Dan', sex: 'male', child : { a : 1 } }
+						, { id: 4, name: 'Jon', sex: 'male', child : { a : 1 } }
+						, { id: 5, name: 'Dug', sex: 'male', child : { a : 2 } }
+					]
+					, female: [ 
+						{ id: 2, name: 'Sam', sex: 'female', child : { a : 2 } }
+						, { id: 3, name: 'Pat', sex: 'female', child : { a : 3 } } 
+					] 
+				} 
+			}
 		);
 		
 		test.done();
@@ -42,26 +52,54 @@ module.exports = {
 	, "test data array, index all fields" : function (test) {
 		test.deepEqual(
 			index(data)
-			, { id: 
-				{ '1': [ { id: 1, name: 'Dan', sex: 'male' } ],
-					'2': [ { id: 2, name: 'Sam', sex: 'female' } ],
-					'3': [ { id: 3, name: 'Pat', sex: 'female' } ],
-					'4': [ { id: 4, name: 'Jon', sex: 'male' } ],
-					'5': [ { id: 5, name: 'Dug', sex: 'male' } ] },
-				name: 
-				{ Dan: [ { id: 1, name: 'Dan', sex: 'male' } ],
-					Sam: [ { id: 2, name: 'Sam', sex: 'female' } ],
-					Pat: [ { id: 3, name: 'Pat', sex: 'female' } ],
-					Jon: [ { id: 4, name: 'Jon', sex: 'male' } ],
-					Dug: [ { id: 5, name: 'Dug', sex: 'male' } ] },
-				sex: 
-				{ male: 
-					[ { id: 1, name: 'Dan', sex: 'male' },
-						{ id: 4, name: 'Jon', sex: 'male' },
-						{ id: 5, name: 'Dug', sex: 'male' } ],
-					female: 
-					[ { id: 2, name: 'Sam', sex: 'female' },
-						{ id: 3, name: 'Pat', sex: 'female' } ] } }
+			, { id: { 
+					'1': [ { id: 1, name: 'Dan', sex: 'male', child : { a : 1 } } ]
+					, '2': [ { id: 2, name: 'Sam', sex: 'female', child : { a : 2 } } ]
+					, '3': [ { id: 3, name: 'Pat', sex: 'female', child : { a : 3 } } ]
+					, '4': [ { id: 4, name: 'Jon', sex: 'male', child : { a : 1 } } ]
+					, '5': [ { id: 5, name: 'Dug', sex: 'male', child : { a : 2 } } ] 
+				}
+				, name: { 
+					Dan: [ { id: 1, name: 'Dan', sex: 'male', child : { a : 1 } } ]
+					, Sam: [ { id: 2, name: 'Sam', sex: 'female', child : { a : 2 } } ]
+					, Pat: [ { id: 3, name: 'Pat', sex: 'female', child : { a : 3 } } ]
+					, Jon: [ { id: 4, name: 'Jon', sex: 'male', child : { a : 1 } } ]
+					, Dug: [ { id: 5, name: 'Dug', sex: 'male', child : { a : 2 } } ] 
+				}
+				, sex: {
+					male: [ 
+						{ id: 1, name: 'Dan', sex: 'male', child : { a : 1 } }
+						, { id: 4, name: 'Jon', sex: 'male', child : { a : 1 } }
+						, { id: 5, name: 'Dug', sex: 'male', child : { a : 2 } }
+					]
+					, female: [ 
+						{ id: 2, name: 'Sam', sex: 'female', child : { a : 2 } }
+						, { id: 3, name: 'Pat', sex: 'female', child : { a : 3 } } 
+					] 
+				}
+			}
+		);
+		
+		test.done();
+	}
+	, "test data array, index single deep field" : function (test) {
+		test.deepEqual(
+			index(data, 'child.a')
+			, { 'child.a' : 
+				{ 
+					1: [ 
+						{ id: 1, name: 'Dan', sex: 'male', child : { a : 1 } }
+						, { id: 4, name: 'Jon', sex: 'male', child : { a : 1 } }
+					]
+					, 2 : [
+						{ id: 2, name: 'Sam', sex: 'female', child : { a : 2 } }
+						, { id: 5, name: 'Dug', sex: 'male', child : { a : 2 } } 
+					]
+					, 3 : [
+						{ id: 3, name: 'Pat', sex: 'female', child : { a : 3 } } 
+					] 
+				}
+			}
 		);
 		
 		test.done();

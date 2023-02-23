@@ -28,11 +28,15 @@ function index (array, fieldList) {
 			fieldList.forEach(function (field) {
 				val = getKeyValue(obj, field);
 				
-				if (!idx[field].hasOwnProperty(val)) {
-					idx[field][val] = [];
-				}
-				
-				idx[field][val].push(obj);
+				val = Array.isArray(val) ? val : [val]
+
+				val.forEach(function (v) {
+					if (!idx[field].hasOwnProperty(v)) {
+						idx[field][v] = [];
+					}
+					
+					idx[field][v].push(obj);
+				})
 			});
 		});
 	}
@@ -41,23 +45,26 @@ function index (array, fieldList) {
 		
 		array.forEach(function (obj) {
 			Object.keys(obj).forEach(function (field) {
-				//avoid indexing fields whose values are
-				//objects
-				if (typeof obj[field] === 'object') {
+				val = obj[field];
+
+				//avoid indexing fields whose values are objects
+				if (typeof val === 'object' && !Array.isArray(val)) {
 					return;
 				}
 				
 				if (!idx.hasOwnProperty(field)) {
 					idx[field] = {};
 				}
-				
-				val = obj[field];
-				
-				if (!idx[field].hasOwnProperty(val)) {
-					idx[field][val] = [];
-				}
-				
-				idx[field][val].push(obj);
+
+				val = Array.isArray(val) ? val : [val]
+
+				val.forEach(function (v) {
+					if (!idx[field].hasOwnProperty(v)) {
+						idx[field][v] = [];
+					}
+					
+					idx[field][v].push(obj);
+				})
 			});
 		});
 	}

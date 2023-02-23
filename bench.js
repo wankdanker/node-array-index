@@ -20,7 +20,7 @@ var data = [
 	, { id : 5, name : 'Dug', sex : 'male' }
 ];
 
-iterations = 1000;
+iterations = 100000;
 
 start = +new Date();
 for (var x = 0; x < iterations; x ++) {

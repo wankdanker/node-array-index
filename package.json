@@ -16,5 +16,8 @@
     "index",
     "array",
     "object"
-  ]
+  ],
+  "devDependencies": {
+    "nodeunit": "^0.11.3"
+  }
 }

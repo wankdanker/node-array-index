@@ -5,7 +5,7 @@ function index (array, fieldList) {
 		, val
 		;
 	
-	if (this.constructor.name == 'Array') {
+	if (this && this.constructor.name == 'Array') {
 		fieldList = array;
 		array = this;
 	}

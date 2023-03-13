@@ -1,5 +1,12 @@
 module.exports = index;
 
+/**
+ *
+ * @template T
+ * @param {T[]} array
+ * @param {string[]} fieldList
+ * @return { {[k in typeof fieldList[number]]: T[]} }
+ */
 function index (array, fieldList) {
 	var idx = {}
 		, val
